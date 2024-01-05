@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include "raylib.h"
-
 #include "player.h"
 
 void InitPlayer(Entity *e) {

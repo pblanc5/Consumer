@@ -7,7 +7,9 @@
 #include "entity.h"
 #include "collision.h"
 
-#define MAX_ENEMIES 10
+#include "raymath.h"
+
+#define MAX_ENEMIES 25
 
 typedef struct Game {
   bool isPaused;

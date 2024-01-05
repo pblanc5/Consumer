@@ -1,10 +1,10 @@
 #include "entity.h"
 
-Entity *SpawnEntity(int x, int y, int r) {
+Entity *SpawnEntity(int x, int y) {
   Entity *e = MemAlloc(sizeof(Entity));
   e->position = (Vector2){x, y};
   e->active = true;
-  e->radius = r % INITIAL_RADIUS + 3;
+  e->radius = GetRandomValue(INITIAL_RADIUS, INITIAL_RADIUS +2);
   e->speed = INITIAL_SPEED;
 
   return e;
@@ -23,7 +23,6 @@ void DestroyEntity(Entity *e) {
 void DrawEntity(Entity *e){
   if (e->active) {
     DrawCircleV(e->position, e->radius, e->color);
-    DrawCircleLinesV(e->position, e->radius + 100, GREEN);
   }
 }
 

@@ -1,9 +1,4 @@
-#include <stdlib.h>
-#include <time.h>
-
 #include "game.h"
-
-#include "raymath.h"
 
 /*
 * SpawnGame
@@ -11,7 +6,7 @@
 * @Return (Game *)
 */
 Game *SpawnGame(void) {
-  Game *g = malloc(sizeof(Game));
+  Game *g = MemAlloc(sizeof(Game));
   TraceLog(LOG_INFO, "(InitGame): Game initialized");
   return g;
 }
@@ -22,9 +17,7 @@ Game *SpawnGame(void) {
 * @Returns void
 */
 void InitGame(Game *g) {
-  srand(time(NULL));
-
-  Entity *p = SpawnEntity(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 1);
+  Entity *p = SpawnEntity(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
   InitPlayer(p);
 
   g->isOver = false;
@@ -32,11 +25,10 @@ void InitGame(Game *g) {
   g->player = p;
 
   for (int i = 0; i < MAX_ENEMIES; i++) {
-    int x = rand() % SCREEN_WIDTH;
-    int y = rand() % SCREEN_HEIGHT;
-    int r = rand();
+    int x = GetRandomValue(0, SCREEN_WIDTH);
+    int y = GetRandomValue(0, SCREEN_HEIGHT);
 
-    Entity *e = SpawnEntity(x, y, r);
+    Entity *e = SpawnEntity(x, y);
     InitEnemy(e);
     g->enemies[i] = e;    
   }
@@ -103,7 +95,7 @@ void UpdateGame(Game *g) {
           continue;
         }
 
-        Entity *closestEnemy = NULL;
+        Entity *closestEnemy = 0;
         float minDist = 1000000;
 
         // Find Closest Enemy
@@ -119,7 +111,7 @@ void UpdateGame(Game *g) {
         }
 
         // Update Movement
-        if (closestEnemy != NULL) {
+        if (closestEnemy != 0) {
           UpdateEnemyForEnemy(e1, closestEnemy);
           continue;
         } else {
@@ -189,6 +181,6 @@ void DestroyGame(Game *g) {
     DestroyEntity(g->enemies[i]);
   }
 
-  free(g);
+  MemFree(g);
 }
 

@@ -16,7 +16,7 @@ typedef struct Entity {
   Color color;
 } Entity;
 
-Entity *SpawnEntity(int, int, int);
+Entity *SpawnEntity(int, int);
 void Consume(Entity *, Entity*);
 void DrawEntity(Entity *);
 void DestroyEntity(Entity *);
